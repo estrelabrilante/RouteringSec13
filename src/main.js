@@ -3,6 +3,7 @@ import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import TeamsList from './components/teams/TeamsList.vue';
 import UsersList from './components/users/UsersList.vue';
+import TeamMembers from './components/teams/TeamMembers.vue';
 
 import App from './App.vue';
 const router = createRouter({
@@ -15,8 +16,14 @@ const router = createRouter({
     {
       path: '/users',
       component: UsersList
+    },
+    {
+      // passing data with route params
+      path: '/teams/:tmId',
+      component: TeamMembers
     }
-  ]
+  ],
+  linkActiveClass: 'active'
 });
 
 const app = createApp(App);
