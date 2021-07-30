@@ -56,7 +56,14 @@ const router = createRouter({
       component: NotFound // our-domain.com/hi
     }
   ],
-  linkActiveClass: 'active'
+  linkActiveClass: 'active',
+  scrollBehavior(to, from, savedPosition) {
+    console.log(to, from, savedPosition);
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return { left: 0, top: 0 }; //scroll to top of page when switch to different page.
+  }
 });
 
 const app = createApp(App);
