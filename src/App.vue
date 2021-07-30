@@ -7,6 +7,10 @@
     <!-- <component :is="activePage"></component> -->
     <router-view></router-view>
   </main>
+  <!-- unnamed router-view -->
+  <footer>
+    <router-view name="footer"> </router-view>
+  </footer>
 </template>
 
 <script>

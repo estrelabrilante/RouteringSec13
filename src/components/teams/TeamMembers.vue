@@ -8,8 +8,8 @@
         :name="member.fullName"
         :role="member.role"
       ></user-item>
-      <router-link to="/teams/t2">Go to Team2</router-link>
     </ul>
+    <router-link to="/teams/t2">Go to Team2</router-link>
   </section>
 </template>
 
@@ -18,6 +18,7 @@ import UserItem from '../users/UserItem.vue';
 
 export default {
   inject: ['users', 'teams'],
+  props: ['teamId'],
   components: {
     UserItem
   },
@@ -34,13 +35,24 @@ export default {
     };
   },
   methods: {
-    loadTeamMembers(route) {
-      const tId = route.params.tmId;
-      const selectedTeam = this.teams.find(team => team.Id === tId);
+    // loadTeamMembers(route) {
+    //   const tId = route.params.tmId;
+    //   const selectedTeam = this.teams.find(team => team.Id === tId);
+    //   const members = selectedTeam.members;
+    //   const selectedMembers = [];
+    //   for (const member of members) {
+    //     const selectedUser = this.users.find(user => user.Id === member);
+    //     selectedMembers.push(selectedUser);
+    //   }
+    //   this.members = selectedMembers;
+    //   this.teamName = selectedTeam.name;
+    // }
+    loadTeamMembers(teamId) {
+      const selectedTeam = this.teams.find(team => team.id === teamId);
       const members = selectedTeam.members;
       const selectedMembers = [];
       for (const member of members) {
-        const selectedUser = this.users.find(user => user.Id === member);
+        const selectedUser = this.users.find(user => user.id === member);
         selectedMembers.push(selectedUser);
       }
       this.members = selectedMembers;
@@ -52,13 +64,20 @@ export default {
     //$route.path => path responsible for loading this page
     // this.$route.path;
     // console.log(this.$route);
+    // passing datas with router params
     //$route.params => Holds all route params
-    this.loadTeamMembers(this.$route);
+    // this.loadTeamMembers(this.$route);
+    // passing datas with props
+    this.loadTeamMembers(this.teamId);
+    console.log(this.$route.query);
   },
   // When route change
   watch: {
-    $route(newRoute) {
-      this.loadTeamMembers(newRoute);
+    // $route(newRoute) {
+    //   this.loadTeamMembers(newRoute);
+    // }
+    teamId(newId) {
+      this.loadTeamMembers(newId);
     }
   }
 };
